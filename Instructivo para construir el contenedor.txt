@@ -1,0 +1,52 @@
+#=========================================
+# PARA CONSTRUIR LA IMAGEN
+# (POSICIONARSE DONDE ESTA EL Dockerfile)
+#=========================================
+cd ~/DockerSettings/
+docker build -t docker-segmentador .
+
+
+#===================================================
+# PARA INSTANCIAR LA IMAGEN --> CREAR EL CONTENEDOR
+# (SOLO LA PRIMERA VEZ)
+#===================================================
+
+xhost +
+docker run -it \
+  --volume=/tmp/.X11-unix:/tmp/.X11-unix \
+  --volume="/home/sebastian/Escritorio/Herramienta:/Docker" \
+  --env="DISPLAY" \
+  --env="QT_X11_NO_MITSHM=1" \
+  docker-segmentador \
+  bash
+
+
+#=========================================
+# PARA CORRER EL CONTENEDOR
+# (LUEGO DE CREADO)
+#=========================================
+
+xhost +
+docker start -i <nombre_aleatorio ó ID>
+
+
+#================================================
+# PARA LEVANTAR LA MISMA IMAGEN EN OTRA TERMINAL
+# (UNA VEZ QUE YA ESTA CORRIENDO)
+#================================================
+
+docker exec -it <nombre_aleatorio ó ID> bash
+
+
+
+docker images ---> Ver todas las imágenes 
+
+docker ps -a ---> Ver todas las imágenes CREADAS
+
+
+#================================================
+# PARA BORRAR
+# (UNA VEZ QUE YA ESTA CORRIENDO)
+#================================================
+
+docker rmi <nombre_aleatorio ó ID>
